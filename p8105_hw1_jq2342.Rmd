@@ -4,10 +4,10 @@ output: github_document
 date: "2022-09-22"
 ---
 
-library(tidyverse)
 
 **QUESTION 1**
-```{r}
+```{r dfpenguins}
+library(tidyverse)
 data("penguins", package = "palmerpenguins")
 df=penguins
 ls(df)
@@ -18,7 +18,51 @@ mean(df$flipper_length_mm, na.rm=TRUE)
 ##1. The penguins data includes the species, island, length and depth of the bill, length of the flippers, body mass, sex and year.
 ##2. There are 8 variables(column) and 344 observations(row)
 ##3. The mean for flipper_length_mm is 200.9152
-```{r chunk_scatterplot}
-ggplot(df, aes (x=bill_length_mm, y=flipper_length_mm, color=species)) +geom_point()
+
+```{r scatterplot}
+
+ggplot(df, aes(x=bill_length_mm, y=flipper_length_mm, color=species,na.rm=TRUE)) + geom_point(na.rm=TRUE)
 ggsave("df.png")
 ```
+
+**QUESTION 2**
+```{r  createdf}
+hw1_df=tibble (  
+vec_ran=rnorm(n=10),
+vec_logi=vec_ran>0,
+vec_char=(c("this", "is", "a", "character", "vector", "for", "the", "home", "work", "two")),
+vec_fac=factor(c("one","two","three","one","two","three","one","two","three","one"))
+)
+```
+
+```{r mean}
+mean(hw1_df$vec_ran, na.rm=TRUE)
+mean(hw1_df$vec_logi, na.rm=TRUE)
+mean(hw1_df$vec_char, na.rm=TRUE)
+mean(hw1_df$vec_fac, na.rm=TRUE)
+```
+##the mean of vec_ran is 0.152
+##the mean of vec_logi is 0.3, there should not be a mean for the logical since true and false do not have numeric value, however r treats TRUE as 1 and FALSE as 0.
+##the mean of vec_char is not applicable because character variable doesn' have a numeric value 
+##the mean of vec_fac is not applicable because string variable doesn' have a numeric value 
+
+```{r asnumericfunction}
+hw1_df$vec_char = as.numeric(as.character(hw1_df$vec_char)) 
+hw1_df$vec_logi = as.numeric(as.character(hw1_df$vec_logi)) 
+hw1_df$vec_fac = as.numeric(as.character(hw1_df$vec_fac)) 
+print (sapply(hw1_df, class))
+```
+##after applying as.numeric to the non-numeric variables, they are changed into numeric variables.This explain why the mean for those variable are not applicable since they weren't numeric
+
+
+
+
+
+
+
+
+
+
+
+
+
