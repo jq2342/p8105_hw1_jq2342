@@ -1,0 +1,24 @@
+---
+title: "p8105_hw1_jq2342"
+output: github_document
+date: "2022-09-22"
+---
+
+library(tidyverse)
+
+**QUESTION 1**
+```{r}
+data("penguins", package = "palmerpenguins")
+df=penguins
+ls(df)
+nrow(df) 
+ncol(df)
+mean(df$flipper_length_mm, na.rm=TRUE)
+```
+##1. The penguins data includes the species, island, length and depth of the bill, length of the flippers, body mass, sex and year.
+##2. There are 8 variables(column) and 344 observations(row)
+##3. The mean for flipper_length_mm is 200.9152
+```{r chunk_scatterplot}
+ggplot(df, aes (x=bill_length_mm, y=flipper_length_mm, color=species)) +geom_point()
+ggsave("df.png")
+```
